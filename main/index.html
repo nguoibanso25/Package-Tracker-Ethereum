@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Demo Blokchain</title>
+    <link rel="stylesheet" type="text/css" href="./css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="./css/custom.css">
+    
+</head>
+<body>
+   
+  <!-- Tìm kiếm và tạo thành viên -->
+    <nav class="navbar navbar-light bg-light">
+        <form class="form-inline">
+            <input id="searchPackage" class="form-control mr-sm-2" type="number" placeholder="Search" aria-label="Search">
+            <button type="button" class="btn btn-info" onclick="App.searchPack(); return false;" data-toggle="modal" data-target="#infoPackage">Search</button>
+            <button id="position-right" type="button" class="btn btn-success" data-toggle="modal" data-target="#createMember">Create Member </button>
+        </form>
+    </nav>
+  <!-- Thông tin tài khoản Ether được sử dụng -->
+  <div id="account-info" class="col-lg-12">
+        <img class="account-box" src="./image/accounts.svg.png" width="30" height="30" alt="">
+        <p class="account-box" id="account" class="welcome pull-right"></p>
+        <p class="account-box" id="accountBalance" class="welcome pull-left"></p>
+        <div id="memberRow" class="row">
+          <!-- MEMBER LOAD HERE -->
+        </div>
+  </div>
+  <div class="col-lg-12">
+    <strong>List Package Of Owner:</strong>
+    <p id="listPack"></p>
+    <div id="listPackOfOwner" class="row">
+      <!-- LIST LOAD HERE -->
+    </div>
+    <p></p>
+  </div>
+
+    <!-- Miêu tả thông tin Member -->
+    <div id="memberTemplate" style="display: none;">
+        <div class="row-lg-12">
+          <div class="panel panel-default panel-article">
+            <div class="panel-heading">
+              <h3 class="panel-title"></h3>
+            </div>
+            <div class="panel-body">
+              <strong>Type</strong>: <span class="type-member"></span><br/>
+              <strong>Name</strong>: <span class="name-member"></span><br/>
+              <strong>Discription</strong>: <span class="discription-member"></span><br/>
+            </div>
+          </div>
+        </div>
+    </div>
+
+    <!-- Tạo gói hàng -->
+    <div class="btn-group col-lg-12" role="group" aria-label="Basic example">
+        <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#createPackage">Create Package</button>
+        <button type="button" class="btn btn-outline-success" onclick="App.detailListPack(); return false;">Detail</button>
+    </div>
+    <div class="col-lg-12">
+      <div id="packageRow" class="row">
+        <!-- PACKAGE LOAD HERE -->
+      </div>
+    </div>
+    <div id="packTemplate" style="display: none;" >
+      <div class="col-lg-12">
+          <li class="list-group-item">
+              <div class="row-lg-12">
+                  <div class="panel panel-default panel-article">
+                    <div class="panel-heading">
+                      <h3 class="panel-title"></h3>
+                    </div>
+                    <div class="panel-body">
+                      <strong>ID</strong>: <span class="pId-pack"></span><br/>
+                      <strong>Owner</strong>: <span class="owner-pack"></span><br/>
+                      <strong>Name</strong>: <span class="name-pack"></span><br/>
+                      <strong>Discription</strong>: <span class="discription-pack"></span><br/>
+                      <strong>State</strong>: <span class="state-pack"></span><br/>
+                      <div id="changeState" class="btn-group" role="group" aria-label="Basic example">
+                          <button type="button" class="btn btn-secondary" onclick="App.tranferPack(); return false;">Tranfer</button>
+                          <button type="button" class="btn btn-secondary" onclick="App.auditStatePack(); return false;">Audit</button>
+                          <button type="button" class="btn btn-secondary" onclick="App.storageStatePack(); return false;">Storage</button>
+                      </div>
+                      <button type="button" class="btn btn-outline-info" onclick="App.historyPack(); return false;">History State</button>
+                      <div id="listState" class ="row-lg-12">
+                            <!-- STATE LOAD HERE -->
+                      </div>
+                      
+                    </div>
+                    </div>
+                  </div>
+                </div>
+          </li> 
+      </div>
+      
+    </div>
+    <!-- Bảng trạng thái -->
+    <div id="detailState" style="display: none;">
+        <li class="list-group-item">
+            <div class="panel-body">
+                <strong>State</strong>: <span class="state-name"></span><br/>
+                <div class="time-sate">
+                    <strong >From Block </strong>: <span class="state-start"></span><br/>
+                    <strong >To Block </strong>: <span class="state-end"></span><br/>
+                </div>
+                <div class="last-state">
+                    <strong >Đây là trạng thái hiện tại</strong>
+                </div>
+                <strong>Who</strong>: <span class="state-who"></span><br/>
+            </div>
+        </li> 
+      </div>
+
+    <!-- Hiện bảng tạo thành viên khi bấm vào Create Member -->
+    <div class="modal fade" id="createMember" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Create Member</h4>
+        </div>
+        <div class="modal-body">
+
+          <div class="row">
+            <div class="col-lg-12">
+              <form>
+                <div class="form-group">
+                  <label for="memberName">Type Name</label>
+                  <input type="text" class="form-control" id="memberType" placeholder="Type of Member">
+                </div>
+                <div class="form-group">
+                  <label for="memberType">Name</label>
+                  <input type="text" class="form-control" id="memberName" placeholder="Enter the name of your name">
+                </div>
+                <div class="form-group">
+                  <label for="infoMember">Description</label>
+                  <input type="text" class="form-control vresize" id="memberInfo" placeholder="Infomation"></input>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary btn-success" data-dismiss="modal" onclick="App.addMember(); return false;">Create</button>
+          <button type="button" class="btn" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+    <!-- Hiện bảng tạo Package -->
+    <div class="modal" tabindex="-1" role="dialog" id="createPackage">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Modal title</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="form-group">
+                <label for="packageId">ID Package</label>
+                <input type="number" class="form-control" id="packageId" placeholder="123456">
+              </div>
+              <div class="form-group">
+                <label for="packageName">Name Package</label>
+                <input type="text" class="form-control" id="packageName" placeholder="Tên gói hàng">
+              </div>
+              <div class="form-group">
+                <label for="packageInfo">Infomation</label>
+                <input type="text" class="form-control" id="packageInfo" placeholder="Thông tin gói hàng">
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="App.addPackage(); return false;">Create Package</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Đường dẫn script -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="./js/bootstrap.min.js"></script>
+    <script src="./js/web3.min.js"></script>
+    <script src="./js/truffle-contract.js"></script>
+    <script src="./js/custom.js"></script>
+</body>
+</html>
