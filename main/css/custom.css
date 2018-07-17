@@ -1,6 +1,13 @@
+body {
+	/* padding-top: 40px; */
+	/* padding-bottom: 120px; */
+	padding-left: 10%;
+	padding-right: 10%;
+}
+
 #position-right{
     position: absolute;
-    right: 50px;    
+    right: 2%;    
     /*width: 200px;
     height: 120px;
     border: 3px solid green;*/
