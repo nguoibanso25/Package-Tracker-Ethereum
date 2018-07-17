@@ -1,0 +1,33 @@
+#position-right{
+    position: absolute;
+    right: 50px;    
+    /*width: 200px;
+    height: 120px;
+    border: 3px solid green;*/
+}
+
+.navbar.navbar-light.bg-light {
+	background-image: url(../image/snowtree.jpg);
+	background-size: cover;
+}
+
+.btn.btn-outline-success.my-2.my-sm-0 {
+	color: #e52c07
+}
+
+.account-box {
+	/*position: absolute;
+    right: 200px; 
+    border: 20px solid #019f87;*/
+    display: inline-block;
+    margin: 5px 10px 10px 0px;
+}
+/* .center {
+	height:40px; 
+	position:relative; 
+	margin: 20px -50px;
+	width:200px; 
+	top:50%; 
+	left:50%;
+} */
+
