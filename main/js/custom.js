@@ -143,7 +143,8 @@ App = {
       if (data[0] == App.account) {
         packTemplate.find('.owner-pack').text("You");
       } else {
-        packTemplate.find('.owner-pack').text(data[0]);
+        //packTemplate.find('.owner-pack').text(App.showNameMember(data[0]));
+        App.showNameMember(data[0]);
       }
       packTemplate.find('.name-pack').text(data[3]);
       packTemplate.find('.discription-pack').text(data[4]);
@@ -152,6 +153,17 @@ App = {
     }).catch(function(err) {
       console.error(err);
     });  
+  },
+
+  showNameMember: function(_addressMember) {
+    App.contracts.packageTracker.deployed().then(function(instance) {
+      return instance.memberList(_addressMember);
+    }).then (function(data){
+      //return data[1];
+      $("#packTemplate").find('.owner-pack').text(data[1]);
+    }).catch(function(err) {
+      console.error(err);
+    }); 
   },
 
   listPackage: function() {
@@ -229,6 +241,7 @@ App = {
   historyPack: function() {
     let contractInstance;
     let _pId = Number($("#searchPackage").val());
+    $("#listState").empty();
     App.contracts.packageTracker.deployed().then(function(instance) {
       contractInstance = instance;
       return contractInstance.getStatesOfPack(_pId);
@@ -260,9 +273,21 @@ App = {
         detailState.find('.time-sate').hide();
         detailState.find('.last-state').show();
       }
-      detailState.find('.state-who').text(data[4]);
+      //detailState.find('.state-who').text(data[4]);
+      App.showWho(data[4]);
       listState.append(detailState.html());
     })
+  },
+
+  showWho: function(_addressWho) {
+    App.contracts.packageTracker.deployed().then(function(instance) {
+      return instance.memberList(_addressWho);
+    }).then (function(data){
+      //return data[1];
+      $("#detailState").find('.state-who').text(data[1]);
+    }).catch(function(err) {
+      console.error(err);
+    }); 
   }
 
 
